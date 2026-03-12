@@ -1,6 +1,7 @@
 // Работаем с нодой (импорт)
 const readline = require("readline");
 const helper = require("./utils/helper");
+const Decorator = require("./utils/decorator");
 
 //Обращаемся к фреймворку для работы с переменной
 const rl = readline.createInterface({
@@ -17,9 +18,7 @@ let notes = [];
 const welcome = `Тебя приветствует приложение ${NAME_PROJ}`;
 
 const welcomeApp = () => {
-    console.log('-'.repeat(42));
-    console.log(`${welcome}`);
-    console.log('-'.repeat(42));
+    Decorator.presentMenu(welcome);
     showMenu();
 }
 
@@ -44,7 +43,7 @@ const addNote = () => {
 const showNotes = () => {
     console.log("----Все ваши заметки----");
     notes.forEach((note) => {
-        console.log("-".repeat(30));
+        Decorator.drawLine()
         console.log(`${note.id} * ${note.date}`);
         console.log(`${note.title}`);
         console.log(`${note.content}`);
