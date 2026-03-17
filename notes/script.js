@@ -33,7 +33,7 @@ const addNote = () => {
             };
             notes.push(newNote);
             console.log(`Заметка ${newNote.title} сохранена!`);
-            console.log(`Всего заметок: ${notes.length}`);
+            helper.statsNotes(notes);
             showMenu();
         }); 
     });
@@ -41,25 +41,16 @@ const addNote = () => {
 }; //Стрелочная функция
 
 const showNotes = () => {
-    console.log("----Все ваши заметки----");
-    notes.forEach((note) => {
-        Decorator.drawLine()
-        console.log(`${note.id} * ${note.date}`);
-        console.log(`${note.title}`);
-        console.log(`${note.content}`);
-        console.log("-".repeat(30));
-    });
-    showMenu();
+    Decorator.showFormatAllNotes(notes);
+    showMenu()
 };
 
-const showMenu = () => {
-    console.log("Главное меню");
-    console.log(`Всего заметок: ${notes.length}`);
-    console.log("1.Добавить заметку");
-    console.log("2.Глянуть заметки(типо all)");
-    console.log("3.Удалить заметку")
 
-    rl.question("Выберите пункт от 1 до 3:", (choice) => {
+// Меню программы
+const showMenu = () => {
+    Decorator.presentWelcomeMenu()
+    helper.statsNotes(notes);
+    rl.question("Выберите пункт от 1 до 4:", (choice) => {
         switch(choice){
             case '1':
                 addNote();
@@ -68,7 +59,10 @@ const showMenu = () => {
                 showNotes();
                 break;
             case '3':
-                deleteNote();    
+                deleteNote();
+            case '4':
+                console.log("Завершение программы")
+
             default:
                 console.log("плаки плаки бурмалдаки");
                 showMenu();
